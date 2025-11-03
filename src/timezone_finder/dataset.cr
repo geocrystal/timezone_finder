@@ -4,11 +4,26 @@ require "geojson"
 require "json"
 
 module TimezoneFinder
+  struct BoundingBox
+    getter min_lon : Float64
+    getter max_lon : Float64
+    getter min_lat : Float64
+    getter max_lat : Float64
+
+    def initialize(@min_lon, @max_lon, @min_lat, @max_lat)
+    end
+
+    def contains?(lon : Float64, lat : Float64) : Bool
+      lon >= @min_lon && lon <= @max_lon && lat >= @min_lat && lat <= @max_lat
+    end
+  end
+
   struct Feature
     getter tzid : String
     getter polygons : Array(Array(Array(Array(Float64)))) # MultiPolygon
+    getter bounding_boxes : Array(BoundingBox)            # Precomputed bounding box for each polygon
 
-    def initialize(@tzid, @polygons)
+    def initialize(@tzid, @polygons, @bounding_boxes)
     end
   end
 
@@ -66,6 +81,31 @@ module TimezoneFinder
     load_from_directory(@@default_directory)
   end
 
+  # Compute bounding box for a polygon
+  private def self.compute_bounding_box(polygon : Array(Array(Array(Float64)))) : BoundingBox
+    min_lon = Float64::MAX
+    max_lon = Float64::MIN
+    min_lat = Float64::MAX
+    max_lat = Float64::MIN
+
+    polygon.each do |ring|
+      ring.each do |coord|
+        lon, lat = coord[0], coord[1]
+        min_lon = lon if lon < min_lon
+        max_lon = lon if lon > max_lon
+        min_lat = lat if lat < min_lat
+        max_lat = lat if lat > max_lat
+      end
+    end
+
+    BoundingBox.new(min_lon, max_lon, min_lat, max_lat)
+  end
+
+  # Compute bounding boxes for all polygons
+  private def self.compute_bounding_boxes(polygons : Array(Array(Array(Array(Float64))))) : Array(BoundingBox)
+    polygons.map { |polygon| compute_bounding_box(polygon) }
+  end
+
   # Load individual timezone files from a directory
   # Files should be named like "Europe-Kyiv-tz.json" where the timezone name is in the filename
   # The timezone name is extracted from the filename: "Europe-Kyiv-tz.json" -> "Europe/Kyiv"
@@ -101,7 +141,9 @@ module TimezoneFinder
                      next
                    end
 
-        features << Feature.new(timezone_name, polygons)
+        # Precompute bounding boxes for each polygon
+        bounding_boxes = compute_bounding_boxes(polygons)
+        features << Feature.new(timezone_name, polygons, bounding_boxes)
       rescue ex
         # Skip files that can't be parsed
         next

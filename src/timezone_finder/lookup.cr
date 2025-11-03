@@ -11,25 +11,10 @@ module TimezoneFinder
     @@features.not_nil!.each do |feature|
       # For MultiPolygon, check if point is in ANY polygon
       # Each polygon can have multiple rings: ring 0 is outer boundary, rings 1+ are holes
-      feature.polygons.each do |polygon|
-        # Quick bounding box check to skip polygons that clearly don't contain the point
-        min_lon = Float64::MAX
-        max_lon = Float64::MIN
-        min_lat = Float64::MAX
-        max_lat = Float64::MIN
-
-        polygon.each do |ring|
-          ring.each do |coord|
-            lon, lat = coord[0], coord[1]
-            min_lon = lon if lon < min_lon
-            max_lon = lon if lon > max_lon
-            min_lat = lat if lat < min_lat
-            max_lat = lat if lat > max_lat
-          end
-        end
-
-        # Skip if point is clearly outside bounding box
-        next if point[0] < min_lon || point[0] > max_lon || point[1] < min_lat || point[1] > max_lat
+      feature.polygons.each_with_index do |polygon, polygon_idx|
+        # Use precomputed bounding box to skip polygons that clearly don't contain the point
+        bbox = feature.bounding_boxes[polygon_idx]
+        next unless bbox.contains?(point[0], point[1])
 
         # Convert polygon from Array(Array(Array(Float64))) to Array(Array(Point))
         # where each coordinate [lon, lat] becomes {lon, lat}
