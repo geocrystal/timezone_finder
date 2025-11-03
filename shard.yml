@@ -1,0 +1,14 @@
+name: timezone_finder
+version: 0.1.0
+
+authors:
+  - Anton Maminov <anton.linux@gmail.com>
+
+dependencies:
+  geojson:
+    github: geocrystal/geojson
+  polygon_contains:
+    github: geocrystal/polygon_contains
+    branch: main
+
+license: MIT
