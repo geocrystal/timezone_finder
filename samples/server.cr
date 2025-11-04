@@ -97,6 +97,9 @@ server = HTTP::Server.new do |context|
   end
 end
 
+puts "Loading timezone data..."
+TimezoneFinder.ensure_loaded
+
 address = server.bind_tcp PORT
 puts "Timezone Finder API Server"
 puts "Listening on http://#{address}"
