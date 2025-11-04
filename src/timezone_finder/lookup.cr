@@ -27,7 +27,7 @@ module TimezoneFinder
 
         # Check if point is in this polygon using PolygonContains
         if PolygonContains.contains?(converted_polygon, point)
-          return Time::Location.load(feature.tzid)
+          return Time::Location.load?(feature.tzid)
         end
       end
     end
