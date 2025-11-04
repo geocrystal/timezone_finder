@@ -66,7 +66,6 @@ module TimezoneFinder
   # Load timezone features from the GeoJSON FeatureCollection file
   # Expected format: {"type": "FeatureCollection", "features": [...]}
   # Each feature has: {"type": "Feature", "properties": {"tzid": "..."}, "geometry": {...}}
-  # Uses optimized direct JSON parsing to avoid GeoJSON library overhead
   private def self.load_from_file(file_path : String)
     features = [] of Feature
 
