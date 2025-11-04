@@ -33,6 +33,12 @@ describe TimezoneFinder do
       tz.try(&.name).should eq("Europe/London")
     end
 
+    it "finds timezone for Oslo, Norway" do
+      tz = TimezoneFinder.lookup(59.9122, 10.7313)
+      tz.should_not be_nil
+      tz.try(&.name).should eq("Europe/Oslo")
+    end
+
     it "finds timezone for Tokyo, Japan" do
       tz = TimezoneFinder.lookup(35.6762, 139.6503)
       tz.should_not be_nil
