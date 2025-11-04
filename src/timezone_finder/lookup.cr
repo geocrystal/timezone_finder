@@ -6,6 +6,7 @@ module TimezoneFinder
   def self.lookup(lat : Float64, lon : Float64) : Time::Location?
     # Auto-load dataset on first call if not already loaded
     ensure_loaded
+
     point = {lon, lat} # Convert to tuple as expected by PolygonContains
 
     self.features.each do |feature|
@@ -21,12 +22,9 @@ module TimezoneFinder
         # where each coordinate [lon, lat] becomes {lon, lat}
         # PolygonContains expects: ring 0 = outer boundary, rings 1+ = holes
         converted_polygon = polygon.map do |ring|
-          ring.map do |coord|
-            {coord[0], coord[1]}
-          end
+          ring.map { |coord| {coord[0], coord[1]} }
         end
 
-        # Check if point is in this polygon using PolygonContains
         if PolygonContains.contains?(converted_polygon, point)
           return Time::Location.load?(feature.tzid)
         end
