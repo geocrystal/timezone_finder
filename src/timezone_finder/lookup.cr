@@ -14,6 +14,7 @@ module TimezoneFinder
       feature.polygons.each_with_index do |polygon, polygon_idx|
         # Use precomputed bounding box to skip polygons that clearly don't contain the point
         bbox = feature.bounding_boxes[polygon_idx]
+
         next unless bbox.contains?(point[0], point[1])
 
         # Convert polygon from Array(Array(Array(Float64))) to Array(Array(Point))
@@ -21,7 +22,7 @@ module TimezoneFinder
         # PolygonContains expects: ring 0 = outer boundary, rings 1+ = holes
         converted_polygon = polygon.map do |ring|
           ring.map do |coord|
-            {coord[0], coord[1]} # Convert [lon, lat] to {lon, lat}
+            {coord[0], coord[1]}
           end
         end
 
@@ -31,6 +32,5 @@ module TimezoneFinder
         end
       end
     end
-    nil
   end
 end
