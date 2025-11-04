@@ -2,6 +2,10 @@
 
 Offline timezone lookup by latitude and longitude for Crystal. This library automatically loads timezone boundary data and provides fast, accurate timezone lookups using spherical geometry.
 
+## Data Source
+
+The timezone boundary data used by this library comes from [timezone-boundary-builder](https://github.com/evansiroky/timezone-boundary-builder), a project that extracts timezone boundaries from OpenStreetMap data.
+
 ## Installation
 
 1. Add the dependency to your `shard.yml`:
@@ -34,15 +38,6 @@ if tz = TimezoneFinder.lookup(51.5074, -0.1278)
   time = Time.now(tz)
   puts time # => Current time in London timezone
 end
-```
-
-### Changing the Data Directory
-
-To use a different directory for timezone files:
-
-```crystal
-TimezoneFinder::Dataset.default_directory = "path/to/your/timezone/files"
-# The dataset will be reloaded from the new directory on next lookup
 ```
 
 ## Performance

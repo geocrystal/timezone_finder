@@ -29,13 +29,6 @@ module TimezoneFinder
   @@features : Array(Feature)? = nil
   @@default_directory : String = "data"
 
-  # Set the default directory for auto-loading individual timezone files
-  def self.default_directory=(directory : String)
-    @@default_directory = directory
-    # Clear cached features so they'll be reloaded from the new directory
-    @@features = nil
-  end
-
   # Auto-load individual timezone files from the default directory if not already loaded
   # This is called automatically on first lookup
   def self.ensure_loaded

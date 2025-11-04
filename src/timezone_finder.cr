@@ -21,8 +21,5 @@ module TimezoneFinder
   # Files should be named like "Europe-Kyiv-tz.json" where the timezone name
   # is extracted from the filename (e.g., "Europe-Kyiv-tz.json" -> "Europe/Kyiv")
   #
-  # To change the default directory:
-  #   TimezoneFinder::Dataset.default_directory = "path/to/directory"
-  #
   # Methods are defined in dataset.cr and lookup.cr
 end
