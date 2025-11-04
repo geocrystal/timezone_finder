@@ -4,7 +4,7 @@ Offline timezone lookup by latitude and longitude for Crystal. This library auto
 
 ## Data Source
 
-The timezone boundary data used by this library comes from [timezone-boundary-builder](https://github.com/evansiroky/timezone-boundary-builder), a project that extracts timezone boundaries from OpenStreetMap data. The library uses the `combined-with-oceans.json` file, which contains timezone boundaries that have been consistent since 1970, including oceanic timezones.
+The timezone boundary data used by this library comes from [timezone-boundary-builder](https://github.com/evansiroky/timezone-boundary-builder), a project that extracts timezone boundaries from OpenStreetMap data. The library uses the `combined-with-oceans.json` file, which contains timezone boundaries including oceanic timezones.
 
 ## Installation
 
