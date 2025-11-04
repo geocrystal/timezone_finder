@@ -1,4 +1,4 @@
-require "./src/timezone_finder"
+require "../src/timezone_finder"
 
 tz1 = TimezoneFinder.lookup(49.842957, 24.031111)
 puts tz1.try(&.name) # => "Europe/Kyiv"

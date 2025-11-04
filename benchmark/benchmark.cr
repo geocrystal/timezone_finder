@@ -1,4 +1,4 @@
-require "./src/timezone_finder"
+require "../src/timezone_finder"
 
 # Benchmark timezone lookups
 # Run with: crystal run benchmark/benchmark.cr --release
