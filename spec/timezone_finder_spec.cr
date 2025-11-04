@@ -12,37 +12,37 @@ describe TimezoneFinder do
     it "finds timezone for New York, USA" do
       tz = TimezoneFinder.lookup(40.71, -74.00)
       tz.should_not be_nil
-      tz.not_nil!.name.should eq("America/New_York")
+      tz.try(&.name).should eq("America/New_York")
     end
 
     it "finds timezone for Kyiv, Ukraine" do
       tz = TimezoneFinder.lookup(49.842957, 24.031111)
       tz.should_not be_nil
-      tz.not_nil!.name.should eq("Europe/Kyiv")
+      tz.try(&.name).should eq("Europe/Kyiv")
     end
 
     it "finds timezone for London, UK" do
       tz = TimezoneFinder.lookup(51.5074, -0.1278)
       tz.should_not be_nil
-      tz.not_nil!.name.should eq("Europe/London")
+      tz.try(&.name).should eq("Europe/London")
     end
 
     it "finds timezone for Tokyo, Japan" do
       tz = TimezoneFinder.lookup(35.6762, 139.6503)
       tz.should_not be_nil
-      tz.not_nil!.name.should eq("Asia/Tokyo")
+      tz.try(&.name).should eq("Asia/Tokyo")
     end
 
     it "finds timezone for Sydney, Australia" do
       tz = TimezoneFinder.lookup(-33.8688, 151.2093)
       tz.should_not be_nil
-      tz.not_nil!.name.should eq("Australia/Sydney")
+      tz.try(&.name).should eq("Australia/Sydney")
     end
 
     it "finds timezone for São Paulo, Brazil" do
       tz = TimezoneFinder.lookup(-23.5505, -46.6333)
       tz.should_not be_nil
-      tz.not_nil!.name.should eq("America/Sao_Paulo")
+      tz.try(&.name).should eq("America/Sao_Paulo")
     end
 
     it "returns Time::Location type" do
