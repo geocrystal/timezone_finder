@@ -30,42 +30,6 @@ module TimezoneFinder
   @@features : Array(Feature)? = nil
   @@default_directory : String = "data/downloads"
 
-  # Load a GeoJSON FeatureCollection dataset (for backward compatibility)
-  def self.load_dataset(path : String)
-    json_content = File.read(path)
-    collection = GeoJSON::FeatureCollection.from_json(json_content)
-    @@features = collection.features.compact_map do |feature|
-      props = feature.properties
-      next unless props
-
-      tzid_value = props["tzid"]?
-      next unless tzid_value
-      tzid = tzid_value.as(String)
-
-      geom = feature.geometry
-      next unless geom
-
-      polygons = case geom
-                 when GeoJSON::Polygon
-                   # Convert Polygon coordinates to raw Float64 arrays
-                   [geom.coordinates.map do |ring|
-                     ring.map(&.coordinates)
-                   end]
-                 when GeoJSON::MultiPolygon
-                   # Convert MultiPolygon coordinates to raw Float64 arrays
-                   geom.coordinates.map do |polygon|
-                     polygon.map do |ring|
-                       ring.map(&.coordinates)
-                     end
-                   end
-                 else
-                   next
-                 end
-
-      Feature.new(tzid, polygons)
-    end
-  end
-
   # Set the default directory for auto-loading individual timezone files
   def self.default_directory=(directory : String)
     @@default_directory = directory
