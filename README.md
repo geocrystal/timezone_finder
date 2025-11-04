@@ -61,27 +61,32 @@ The dataset is automatically loaded and cached on the first lookup call, so subs
 
 ## Development
 
-Clone this repository.
+1. Clone this repository:
 
-Download the timezone data file (required for lookups):
+   ```sh
+   git clone https://github.com/geocrystal/timezone_finder.git
+   cd timezone_finder
+   ```
+
+2. Download the timezone data file (required for lookups):
 
 ```sh
 crystal run scripts/postinstall.cr
 ```
 
-This will automatically download the `combined-with-oceans.json` file (~150MB) from the [timezone-boundary-builder releases](https://github.com/evansiroky/timezone-boundary-builder/releases). The file is stored in the `data/` directory and will be cached for subsequent runs.
+   This will automatically download the `combined-with-oceans-1970.json` file (~150MB) from the [timezone-boundary-builder releases](https://github.com/evansiroky/timezone-boundary-builder/releases). The file is stored in the `data/` directory and will be cached for subsequent runs.
 
-Run the tests:
+3. Run the tests:
 
-```sh
-crystal spec
-```
+   ```sh
+   crystal spec
+   ```
 
-Run the benchmark:
+4. Run the benchmark:
 
-```sh
-crystal run --release benchmark/benchmark.cr
-```
+   ```sh
+   crystal run --release benchmark/benchmark.cr
+   ```
 
 ## Contributing
 
