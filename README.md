@@ -50,7 +50,7 @@ end
 
 ## Performance
 
-Benchmark results (run with `crystal run --release benchmark.cr`):
+Benchmark results (run with `crystal run --release benchmark/benchmark.cr`):
 
 - **Dataset loading**: ~2.7 seconds to load 329 timezone features (one-time cost)
 - **Single lookup performance**:
@@ -72,7 +72,7 @@ crystal spec
 Run the benchmark:
 
 ```sh
-crystal run --release benchmark.cr
+crystal run --release benchmark/benchmark.cr
 ```
 
 ## Contributing

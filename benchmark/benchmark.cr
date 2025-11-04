@@ -1,7 +1,7 @@
 require "./src/timezone_finder"
 
 # Benchmark timezone lookups
-# Run with: crystal run benchmark.cr --release
+# Run with: crystal run benchmark/benchmark.cr --release
 
 # Test coordinates from around the world
 test_coordinates = [
