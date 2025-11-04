@@ -52,12 +52,12 @@ end
 
 Benchmark results (run with `crystal run --release benchmark.cr`):
 
-- **Dataset loading**: ~4 seconds to load 406 timezone features (one-time cost)
+- **Dataset loading**: ~2.7 seconds to load 329 timezone features (one-time cost)
 - **Single lookup performance**:
-  - Average: ~1ms per lookup
-  - Range: ~0.05ms (fastest) to ~5ms (slowest)
-- **Batch lookups**: ~2ms per lookup, ~500 lookups/second
-- **Random coordinate lookups**: ~0.7ms per lookup, ~1400 lookups/second
+  - Average: ~1.5ms per lookup
+  - Range: 0.069ms (fastest) to 4.5ms (slowest)
+- **Batch lookups**: ~1.8ms per lookup, ~570 lookups/second
+- **Random coordinate lookups**: ~0.6ms per lookup, ~1700 lookups/second
 
 The dataset is automatically loaded and cached on the first lookup call, so subsequent lookups are fast.
 
