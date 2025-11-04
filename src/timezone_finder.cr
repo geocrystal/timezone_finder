@@ -15,7 +15,7 @@ require "./timezone_finder/lookup"
 module TimezoneFinder
   VERSION = "0.1.0"
 
-  # The dataset is automatically loaded from the combined-with-oceans-1970.json file
+  # The dataset is automatically loaded from the combined-with-oceans.json file
   # on the first lookup call. The file contains a GeoJSON FeatureCollection with
   # timezone boundaries (consistent since 1970), where each feature has properties.tzid and geometry.
   #

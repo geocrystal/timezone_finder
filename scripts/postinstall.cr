@@ -3,9 +3,11 @@ require "http/client"
 require "compress/zip"
 
 DATA_DIR     = "data"
-DATA_FILE    = "combined-with-oceans-1970.json"
+DATA_FILE    = "combined-with-oceans.json"
 TARGET_FILE  = File.join(DATA_DIR, DATA_FILE)
 RELEASES_API = "https://api.github.com/repos/evansiroky/timezone-boundary-builder/releases/latest"
+TAG_NAME     = "2025a"
+ASSET_NAME   = "timezones-with-oceans.geojson.zip"
 
 # Check if file already exists
 if File.exists?(TARGET_FILE)
@@ -15,23 +17,10 @@ end
 
 puts "Downloading #{DATA_FILE} from timezone-boundary-builder releases..."
 
-# Get latest release tag (fallback to 2025b if API fails)
-latest_tag = begin
-  response = HTTP::Client.get(RELEASES_API)
-  if response.success?
-    json = JSON.parse(response.body)
-    json["tag_name"].as_s
-  else
-    "2025b"
-  end
-rescue
-  "2025b"
-end
-
-puts "Downloading from release #{latest_tag}..."
+puts "Downloading from release #{TAG_NAME}..."
 
 # Build release URL
-release_url = "https://github.com/evansiroky/timezone-boundary-builder/releases/download/#{latest_tag}/timezones-with-oceans-1970.geojson.zip"
+release_url = "https://github.com/evansiroky/timezone-boundary-builder/releases/download/#{TAG_NAME}/#{ASSET_NAME}"
 
 # Create data directory
 Dir.mkdir_p(DATA_DIR)

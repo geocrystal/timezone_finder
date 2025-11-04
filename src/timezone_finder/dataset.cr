@@ -27,7 +27,7 @@ module TimezoneFinder
   end
 
   @@features : Array(Feature)? = nil
-  @@dataset_file : String = "data/combined-with-oceans-1970.json"
+  @@dataset_file : String = "data/combined-with-oceans.json"
 
   # Auto-load the timezone file if not already loaded
   # This is called automatically on first lookup
