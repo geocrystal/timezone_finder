@@ -28,6 +28,13 @@ jobs:
         uses: actions/checkout@v5
       - name: Install dependencies
         run: shards install
+      - name: Cache timezone data
+        uses: actions/cache@v4
+        with:
+          path: data/combined-with-oceans.json
+          key: timezone-data-2025a
+          restore-keys: |
+            timezone-data-
       - name: Run postinstall
         run: crystal run scripts/postinstall.cr
       - name: Run tests
