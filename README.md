@@ -105,3 +105,7 @@ The dataset is automatically loaded and cached on the first lookup call, so subs
 ## Contributors
 
 - [Anton Maminov](https://github.com/mamantoha) - creator and maintainer
+
+## License
+
+This library is distributed under the MIT license. Please see the LICENSE file.
