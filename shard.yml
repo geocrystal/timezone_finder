@@ -5,8 +5,6 @@ authors:
   - Anton Maminov <anton.linux@gmail.com>
 
 dependencies:
-  geojson:
-    github: geocrystal/geojson
   polygon_contains:
     github: geocrystal/polygon_contains
     branch: main
