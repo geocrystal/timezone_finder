@@ -97,8 +97,11 @@ server = HTTP::Server.new do |context|
   end
 end
 
+start_time = Time.monotonic
 puts "Loading timezone data..."
 TimezoneFinder.ensure_loaded
+load_time = Time.monotonic - start_time
+puts "   Loaded in #{load_time.total_milliseconds.round(2)} ms"
 
 address = server.bind_tcp PORT
 puts "Timezone Finder API Server"
