@@ -49,14 +49,14 @@ TimezoneFinder::Dataset.default_directory = "path/to/your/timezone/files"
 
 Benchmark results (run with `crystal run --release benchmark.cr`):
 
-- **Dataset loading**: ~8 seconds to load 406 timezone features (one-time cost)
+- **Dataset loading**: ~9.3 seconds to load 406 timezone features (one-time cost)
 - **Single lookup performance**:
-  - Average: ~63ms per lookup
-  - Range: 9ms (fastest) to 143ms (slowest)
-- **Batch lookups**: ~70ms per lookup, ~14 lookups/second
-- **Random coordinate lookups**: ~149ms per lookup, ~7 lookups/second
+  - Average: ~2.76ms per lookup
+  - Range: 0.21ms (fastest) to 8.96ms (slowest)
+- **Batch lookups**: ~4.35ms per lookup, ~230 lookups/second
+- **Random coordinate lookups**: ~1.42ms per lookup, ~702 lookups/second
 
-The dataset is automatically loaded and cached on the first lookup call, so subsequent lookups are fast. Lookups are faster when the target timezone is found earlier in the dataset.
+The dataset is automatically loaded and cached on the first lookup call, so subsequent lookups are fast. Lookups are faster when the target timezone is found earlier in the dataset. Precomputed bounding boxes significantly improve lookup performance by quickly filtering out polygons that don't contain the point.
 
 ## Development
 
