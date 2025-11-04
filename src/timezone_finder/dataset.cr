@@ -27,14 +27,14 @@ module TimezoneFinder
   end
 
   @@features : Array(Feature)? = nil
-  @@default_directory : String = "data"
+  @@dataset_file : String = "data/combined-with-oceans-1970.json"
 
-  # Auto-load individual timezone files from the default directory if not already loaded
+  # Auto-load the timezone file if not already loaded
   # This is called automatically on first lookup
   def self.ensure_loaded
     return if @@features
 
-    load_from_directory(@@default_directory)
+    load_from_file(@@dataset_file)
   end
 
   # Compute bounding box for a polygon
@@ -62,30 +62,52 @@ module TimezoneFinder
     polygons.map { |polygon| compute_bounding_box(polygon) }
   end
 
-  # Load individual timezone files from a directory
-  # Files should be named like "Europe-Kyiv-tz.json" where the timezone name is in the filename
-  # The timezone name is extracted from the filename: "Europe-Kyiv-tz.json" -> "Europe/Kyiv"
-  # Uses optimized direct JSON parsing to avoid GeoJSON library overhead (1.5x faster)
-  private def self.load_from_directory(directory : String)
+  # Load timezone features from the GeoJSON FeatureCollection file
+  # Expected format: {"type": "FeatureCollection", "features": [...]}
+  # Each feature has: {"type": "Feature", "properties": {"tzid": "..."}, "geometry": {...}}
+  # Uses optimized direct JSON parsing to avoid GeoJSON library overhead
+  private def self.load_from_file(file_path : String)
     features = [] of Feature
 
-    # Load individual files from directory
-    Dir.glob(File.join(directory, "*-tz.json")).each do |file_path|
-      filename = File.basename(file_path)
-      # Extract timezone name from filename: "Europe-Kyiv-tz.json" -> "Europe/Kyiv"
-      timezone_name = filename.gsub("-tz.json", "").gsub("-", "/")
+    begin
+      json_content = File.read(file_path)
+      json = JSON.parse(json_content)
 
-      begin
-        json_content = File.read(file_path)
+      # Validate FeatureCollection structure
+      type = json["type"]?
+      unless type && type.as_s == "FeatureCollection"
+        raise "Invalid file format: expected FeatureCollection, got #{type}"
+      end
 
-        # Parse JSON once and extract coordinates directly (faster than GeoJSON library)
-        json = JSON.parse(json_content)
-        coords_json = json["coordinates"]?
+      features_json = json["features"]?
+      raise "Missing features array" unless features_json
+      features_array = features_json.as_a
+
+      # Process each feature
+      features_array.each do |feature_json|
+        feature_hash = feature_json.as_h
+
+        # Extract timezone ID from properties.tzid
+        properties_json = feature_hash["properties"]?
+        next unless properties_json
+        properties = properties_json.as_h
+        tzid_json = properties["tzid"]?
+        next unless tzid_json
+        tzid = tzid_json.as_s
+
+        # Extract geometry
+        geometry_json = feature_hash["geometry"]?
+        next unless geometry_json
+        geometry = geometry_json.as_h
+
+        geom_type_json = geometry["type"]?
+        next unless geom_type_json
+        geom_type = geom_type_json.as_s
+        coords_json = geometry["coordinates"]?
         next unless coords_json
 
-        # Convert directly to Float64 arrays without creating Coordinates objects
-        # This skips validation and object creation overhead
-        polygons = case json["type"]?
+        # Convert coordinates to Float64 arrays based on geometry type
+        polygons = case geom_type
                    when "Polygon"
                      # Polygon: [[[lon,lat], [lon,lat], ...]]
                      [coords_json.as_a.map do |ring|
@@ -103,16 +125,15 @@ module TimezoneFinder
                        end
                      end
                    else
-                     next
+                     next # Skip unsupported geometry types
                    end
 
         # Precompute bounding boxes for each polygon
         bounding_boxes = compute_bounding_boxes(polygons)
-        features << Feature.new(timezone_name, polygons, bounding_boxes)
-      rescue ex
-        # Skip files that can't be parsed
-        next
+        features << Feature.new(tzid, polygons, bounding_boxes)
       end
+    rescue ex
+      raise "Failed to load file: #{ex.message}"
     end
 
     @@features = features

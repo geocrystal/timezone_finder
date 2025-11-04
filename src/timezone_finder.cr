@@ -5,7 +5,7 @@
 #   puts tz.try(&.name) # => "Europe/Kyiv"
 #   # Returns Time::Location? which can be used directly with Time
 #
-# The dataset is automatically loaded from data on the first lookup
+# The dataset is automatically loaded from the GeoJSON file on the first lookup
 # and cached for subsequent calls.
 
 require "./timezone_finder/dataset"
@@ -15,11 +15,9 @@ require "./timezone_finder/lookup"
 module TimezoneFinder
   VERSION = "0.1.0"
 
-  # The dataset is automatically loaded from individual timezone files
-  # in the data directory on the first lookup call.
-  #
-  # Files should be named like "Europe-Kyiv-tz.json" where the timezone name
-  # is extracted from the filename (e.g., "Europe-Kyiv-tz.json" -> "Europe/Kyiv")
+  # The dataset is automatically loaded from the combined-with-oceans-1970.json file
+  # on the first lookup call. The file contains a GeoJSON FeatureCollection with
+  # timezone boundaries (consistent since 1970), where each feature has properties.tzid and geometry.
   #
   # Methods are defined in dataset.cr and lookup.cr
 end
