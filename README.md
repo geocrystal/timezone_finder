@@ -1,6 +1,8 @@
 # timezone_finder
 
 [![Crystal CI](https://github.com/geocrystal/timezone_finder/actions/workflows/crystal.yml/badge.svg)](https://github.com/geocrystal/timezone_finder/actions/workflows/crystal.yml)
+[![GitHub release](https://img.shields.io/github/release/geocrystal/timezone_finder.svg)](https://github.com/geocrystal/timezone_finder/releases)
+[![License](https://img.shields.io/github/license/geocrystal/timezone_finder.svg)](https://github.com/geocrystal/geojson/blob/main/LICENSE)
 
 Offline timezone lookup by latitude and longitude for Crystal. This library automatically loads timezone boundary data and provides fast, accurate timezone lookups using spherical geometry.
 
