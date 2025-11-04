@@ -17,7 +17,7 @@ require "./timezone_finder/lookup"
 
 # Main module
 module TimezoneFinder
-  VERSION = "0.1.0"
+  VERSION = {{ `shards version #{__DIR__}`.chomp.stringify }}
 
   # Methods are defined in dataset.cr and lookup.cr
 end

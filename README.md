@@ -21,7 +21,7 @@ The timezone boundary data used by this library comes from [timezone-boundary-bu
 3. Download the timezone data file (required for lookups):
 
    ```sh
-   shards run download_data
+   crystal run scripts/postinstall.cr
    ```
 
    This will automatically download the `combined-with-oceans.json` file (~150MB) from the [timezone-boundary-builder releases](https://github.com/evansiroky/timezone-boundary-builder/releases). The file is stored in the `data/` directory and will be cached for subsequent runs.
@@ -79,7 +79,7 @@ crystal run --release benchmark/benchmark.cr
 
 ## Contributing
 
-1. Fork it (<https://github.com/your-github-user/timezone_finder/fork>)
+1. Fork it (<https://github.com/geocrystal/timezone_finder/fork>)
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
@@ -87,4 +87,4 @@ crystal run --release benchmark/benchmark.cr
 
 ## Contributors
 
-- [Anton Maminov](https://github.com/your-github-user) - creator and maintainer
+- [Anton Maminov](https://github.com/mamantoha) - creator and maintainer

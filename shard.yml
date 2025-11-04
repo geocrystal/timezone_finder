@@ -2,12 +2,11 @@ name: timezone_finder
 version: 0.1.0
 
 authors:
-  - Anton Maminov <anton.linux@gmail.com>
+  - Anton Maminov <anton.maminov@gmail.com>
 
 dependencies:
   polygon_contains:
     github: geocrystal/polygon_contains
-    branch: main
 
 scripts:
   postinstall: crystal run scripts/postinstall.cr

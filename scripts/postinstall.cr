@@ -1,11 +1,9 @@
-require "json"
 require "http/client"
 require "compress/zip"
 
 DATA_DIR     = "data"
 DATA_FILE    = "combined-with-oceans.json"
 TARGET_FILE  = File.join(DATA_DIR, DATA_FILE)
-RELEASES_API = "https://api.github.com/repos/evansiroky/timezone-boundary-builder/releases/latest"
 TAG_NAME     = "2025a"
 ASSET_NAME   = "timezones-with-oceans.geojson.zip"
 
