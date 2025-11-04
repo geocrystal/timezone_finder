@@ -10,6 +10,6 @@ dependencies:
     branch: main
 
 scripts:
-  postinstall: bash scripts/postinstall
+  postinstall: crystal run scripts/postinstall.cr
 
 license: MIT
