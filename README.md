@@ -61,6 +61,8 @@ Benchmark results (run with `crystal run --release benchmark/benchmark.cr`):
 
 The dataset is automatically loaded and cached on the first lookup call, so subsequent lookups are fast.
 
+*Note: Benchmark results were tested on Intel(R) Core(TM) i7-8550U (8) @ 4.00 GHz*
+
 ## Development
 
 Run the tests:
