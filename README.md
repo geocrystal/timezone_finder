@@ -68,7 +68,13 @@ The dataset is automatically loaded and cached on the first lookup call, so subs
    cd timezone_finder
    ```
 
-2. Download the timezone data file (required for lookups):
+2. Install dependencies:
+
+   ```sh
+   shards install
+   ```
+
+3. Download the timezone data file (required for lookups):
 
    ```sh
    crystal run scripts/postinstall.cr
@@ -76,13 +82,13 @@ The dataset is automatically loaded and cached on the first lookup call, so subs
 
    This will automatically download the `combined-with-oceans-1970.json` file (~150MB) from the [timezone-boundary-builder releases](https://github.com/evansiroky/timezone-boundary-builder/releases). The file is stored in the `data/` directory and will be cached for subsequent runs.
 
-3. Run the tests:
+4. Run the tests:
 
    ```sh
    crystal spec
    ```
 
-4. Run the benchmark:
+5. Run the benchmark:
 
    ```sh
    crystal run --release benchmark/benchmark.cr
