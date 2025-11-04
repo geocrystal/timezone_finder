@@ -9,4 +9,7 @@ dependencies:
     github: geocrystal/polygon_contains
     branch: main
 
+scripts:
+  postinstall: bash scripts/postinstall
+
 license: MIT
