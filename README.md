@@ -22,14 +22,6 @@ The timezone boundary data used by this library comes from [timezone-boundary-bu
 
 2. Run `shards install`
 
-3. Download the timezone data file (required for lookups):
-
-   ```sh
-   crystal run scripts/postinstall.cr
-   ```
-
-   This will automatically download the `combined-with-oceans.json` file (~150MB) from the [timezone-boundary-builder releases](https://github.com/evansiroky/timezone-boundary-builder/releases). The file is stored in the `data/` directory and will be cached for subsequent runs.
-
 ## Usage
 
 The library automatically loads the timezone data file from the `data` directory on the first lookup call:
@@ -68,6 +60,16 @@ The dataset is automatically loaded and cached on the first lookup call, so subs
 *Note: Benchmark results were tested on Intel(R) Core(TM) i7-8550U (8) @ 4.00 GHz*
 
 ## Development
+
+Clone this repository.
+
+Download the timezone data file (required for lookups):
+
+```sh
+crystal run scripts/postinstall.cr
+```
+
+This will automatically download the `combined-with-oceans.json` file (~150MB) from the [timezone-boundary-builder releases](https://github.com/evansiroky/timezone-boundary-builder/releases). The file is stored in the `data/` directory and will be cached for subsequent runs.
 
 Run the tests:
 
