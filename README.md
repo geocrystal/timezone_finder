@@ -16,7 +16,7 @@ Offline timezone lookup by latitude and longitude for Crystal. This library auto
 
 ## Usage
 
-The library automatically loads timezone files from the `data/downloads` directory on the first lookup call:
+The library automatically loads timezone files from the `data` directory on the first lookup call:
 
 ```crystal
 require "timezone_finder"

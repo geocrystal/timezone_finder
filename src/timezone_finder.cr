@@ -5,7 +5,7 @@
 #   puts tz.try(&.name) # => "Europe/Kyiv"
 #   # Returns Time::Location? which can be used directly with Time
 #
-# The dataset is automatically loaded from data/downloads on the first lookup
+# The dataset is automatically loaded from data on the first lookup
 # and cached for subsequent calls.
 
 require "./timezone_finder/dataset"
@@ -16,7 +16,7 @@ module TimezoneFinder
   VERSION = "0.1.0"
 
   # The dataset is automatically loaded from individual timezone files
-  # in the data/downloads directory on the first lookup call.
+  # in the data directory on the first lookup call.
   #
   # Files should be named like "Europe-Kyiv-tz.json" where the timezone name
   # is extracted from the filename (e.g., "Europe-Kyiv-tz.json" -> "Europe/Kyiv")

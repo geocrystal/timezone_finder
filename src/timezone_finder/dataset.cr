@@ -28,7 +28,7 @@ module TimezoneFinder
   end
 
   @@features : Array(Feature)? = nil
-  @@default_directory : String = "data/downloads"
+  @@default_directory : String = "data"
 
   # Set the default directory for auto-loading individual timezone files
   def self.default_directory=(directory : String)
