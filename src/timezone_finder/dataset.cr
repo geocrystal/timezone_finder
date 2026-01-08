@@ -26,13 +26,13 @@ module TimezoneFinder
     end
   end
 
-  @@features : Array(Feature)? = nil
+  @@features : Array(Feature) = [] of Feature
   @@dataset_file : String = "data/combined-with-oceans.json"
 
   # Auto-load the timezone file if not already loaded
   # This is called automatically on first lookup
   def self.ensure_loaded
-    return if @@features
+    return unless @@features.empty?
 
     load_from_file(@@dataset_file)
   end
@@ -149,6 +149,6 @@ module TimezoneFinder
 
   def self.features : Array(Feature)
     ensure_loaded
-    @@features.not_nil!
+    @@features
   end
 end
