@@ -80,7 +80,7 @@ begin
   # Extract JSON from zip
   puts "Extracting..."
   Compress::Zip::File.open(temp_zip_path) do |zip|
-    entry = zip.entries.find { |e| e.filename.ends_with?(DATA_FILE) }
+    entry = zip.entries.find(&.filename.ends_with?(DATA_FILE))
     if entry
       entry.open do |input_io|
         File.open(TARGET_FILE, "w") do |f|

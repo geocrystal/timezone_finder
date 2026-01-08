@@ -9,7 +9,7 @@ module TimezoneFinder
 
     point = {lon, lat} # Convert to tuple as expected by PolygonContains
 
-    self.features.each do |feature|
+    features.each do |feature|
       # For MultiPolygon, check if point is in ANY polygon
       # Each polygon can have multiple rings: ring 0 is outer boundary, rings 1+ are holes
       feature.polygons.each_with_index do |polygon, polygon_idx|
