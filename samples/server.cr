@@ -62,7 +62,6 @@ server = HTTP::Server.new do |context|
 
         local_time = Time.local(tz)
         zone = local_time.zone
-        offset = zone.offset
 
         response.print({
           "timezone"   => tz.name,

@@ -4,7 +4,7 @@ describe TimezoneFinder do
   describe "#lookup" do
     it "auto-loads dataset on first lookup" do
       # Dataset should be auto-loaded on first lookup call
-      tz = TimezoneFinder.lookup(40.71, -74.00)
+      TimezoneFinder.lookup(40.71, -74.00)
       features = TimezoneFinder.features
       features.size.should be > 0
     end
@@ -90,11 +90,11 @@ describe TimezoneFinder do
 
     it "caches dataset after first load" do
       # First lookup loads dataset
-      tz1 = TimezoneFinder.lookup(40.71, -74.00)
+      TimezoneFinder.lookup(40.71, -74.00)
       features1 = TimezoneFinder.features
 
       # Second lookup should use cached dataset
-      tz2 = TimezoneFinder.lookup(51.5074, -0.1278)
+      TimezoneFinder.lookup(51.5074, -0.1278)
       features2 = TimezoneFinder.features
 
       # Should be the same instance (cached)

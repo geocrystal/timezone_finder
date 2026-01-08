@@ -83,8 +83,8 @@ begin
     entry = zip.entries.find(&.filename.ends_with?(DATA_FILE))
     if entry
       entry.open do |input_io|
-        File.open(TARGET_FILE, "w") do |f|
-          IO.copy(input_io, f)
+        File.open(TARGET_FILE, "w") do |file|
+          IO.copy(input_io, file)
         end
       end
     else
