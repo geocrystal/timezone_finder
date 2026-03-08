@@ -80,7 +80,7 @@ The dataset is automatically loaded and cached on the first lookup call, so subs
    crystal run scripts/postinstall.cr
    ```
 
-   This will automatically download the `combined-with-oceans-1970.json` file (~150MB) from the [timezone-boundary-builder releases](https://github.com/evansiroky/timezone-boundary-builder/releases). The file is stored in the `data/` directory and will be cached for subsequent runs.
+   This will automatically download the `combined-with-oceans.json` file (~170MB) from the [timezone-boundary-builder releases](https://github.com/evansiroky/timezone-boundary-builder/releases). The file is stored in the `data/` directory and will be cached for subsequent runs.
 
 4. Run the tests:
 
