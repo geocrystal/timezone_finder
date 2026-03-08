@@ -4,7 +4,7 @@ This directory contains the timezone boundary data files used by the `timezone_f
 
 ## File
 
-- **`combined-with-oceans.json`** (~150MB)
+- **`combined-with-oceans.json`** (~170MB)
   - A GeoJSON FeatureCollection containing timezone boundaries
   - Includes timezone boundaries including oceanic timezones
   - Source: [timezone-boundary-builder](https://github.com/evansiroky/timezone-boundary-builder) releases
