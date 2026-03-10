@@ -33,10 +33,10 @@ puts ""
 
 # Benchmark: Initial load time
 puts "1. Dataset Loading Time:"
-start_time = Time.monotonic
+start_time = Time.instant
 TimezoneFinder.ensure_loaded
 features = TimezoneFinder.features
-load_time = Time.monotonic - start_time
+load_time = Time.instant - start_time
 puts "   Loaded #{features.size} timezone features in #{load_time.total_milliseconds.round(2)} ms"
 puts ""
 
@@ -44,9 +44,9 @@ puts ""
 puts "2. Single Lookup Performance:"
 single_lookup_times = [] of Float64
 test_coordinates.each do |coord|
-  start_time = Time.monotonic
+  start_time = Time.instant
   tz = TimezoneFinder.lookup(coord[:lat], coord[:lon])
-  elapsed = Time.monotonic - start_time
+  elapsed = Time.instant - start_time
   single_lookup_times << elapsed.total_milliseconds
   puts "   #{coord[:name]}: #{tz.try(&.name) || "nil"} (#{elapsed.total_milliseconds.round(3)} ms)"
 end
@@ -61,12 +61,12 @@ puts ""
 # Benchmark: Batch lookups (1000 lookups)
 puts "3. Batch Lookup Performance (1000 lookups):"
 iterations = 1000
-start_time = Time.monotonic
+start_time = Time.instant
 iterations.times do |i|
   coord = test_coordinates[i % test_coordinates.size]
   TimezoneFinder.lookup(coord[:lat], coord[:lon])
 end
-batch_time = Time.monotonic - start_time
+batch_time = Time.instant - start_time
 avg_batch = (batch_time.total_milliseconds / iterations)
 throughput = (iterations / batch_time.total_seconds).round
 puts "   #{iterations} lookups in #{batch_time.total_milliseconds.round(2)} ms"
@@ -77,15 +77,15 @@ puts ""
 # Benchmark: Random coordinate lookups
 puts "4. Random Coordinate Lookup Performance (1000 lookups):"
 random_times = [] of Float64
-start_time = Time.monotonic
+start_time = Time.instant
 1000.times do
   lat = rand(-90.0..90.0)
   lon = rand(-180.0..180.0)
-  lookup_start = Time.monotonic
+  lookup_start = Time.instant
   TimezoneFinder.lookup(lat, lon)
-  random_times << (Time.monotonic - lookup_start).total_milliseconds
+  random_times << (Time.instant - lookup_start).total_milliseconds
 end
-random_total = Time.monotonic - start_time
+random_total = Time.instant - start_time
 avg_random = random_times.sum / random_times.size
 puts "   #{random_times.size} random lookups in #{random_total.total_milliseconds.round(2)} ms"
 puts "   Average per lookup: #{avg_random.round(3)} ms"
